@@ -1,4 +1,3 @@
-// server.js (Backend)
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
@@ -7,18 +6,19 @@ const fal = require('@fal-ai/serverless-client');
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors()); // Adjust CORS settings as needed
 app.use(express.json());
-app.use('/',(req,res)=>{
-  res.json({msg:"Hello from JSR."});
+app.use('/', (req, res) => {
+  res.json({ msg: "Hello from JSR." });
 });
+
 // Configure Fal-AI Client
 fal.config({
   credentials: process.env.FAL_KEY,
 });
+
 // API Endpoint
 app.post('/api/proxy', async (req, res) => {
   const {
@@ -73,9 +73,5 @@ app.post('/api/proxy', async (req, res) => {
   }
 });
 
-
-
-// Start Server
-app.listen(port, () => {
-  console.log(`Backend server is running on port ${port}`);
-});
+// Export the app for serverless environment
+module.exports = app;
