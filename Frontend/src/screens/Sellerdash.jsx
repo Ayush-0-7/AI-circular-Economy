@@ -32,7 +32,7 @@ function SellerDashboard() {
     category: '',
     quantity: '',
     price: '',
-    type: 'Waste Product',
+    type: 'Waste Product', // Default type set to Waste Product
     description: '',
     demand: '',
     email: '', // Email field
@@ -148,7 +148,7 @@ function SellerDashboard() {
         category: newProduct.category,
         quantity: parseInt(newProduct.quantity),
         price: parseFloat(newProduct.price),
-        type: newProduct.type,
+        type: newProduct.type, // Store selected product type
         description: newProduct.description,
         demand: 50, // Default demand
         status: 'Available',
@@ -162,7 +162,7 @@ function SellerDashboard() {
         category: newProduct.category,
         quantity: parseInt(newProduct.quantity),
         price: parseFloat(newProduct.price),
-        type: newProduct.type,
+        type: newProduct.type, // Include product type in local state
         description: newProduct.description,
         demand: newProduct.demand,
         status: 'Available',
@@ -175,7 +175,7 @@ function SellerDashboard() {
         category: '',
         quantity: '',
         price: '',
-        type: 'Waste Product',
+        type: 'Waste Product', // Reset type field to default value
         description: '',
         demand: '',
         email: '', // Reset email field
@@ -218,11 +218,11 @@ function SellerDashboard() {
   return (
     <div className="seller-dashboard-container bg-gray-100 min-h-screen p-4 relative">
       <h1 className="text-3xl font-bold mb-6">Seller Dashboard</h1>
-      
+
       {/* Requests Button */}
       <button
         className="absolute top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded"
-        onClick={() => navigate('/requests')}
+        onClick={() => navigate("/requests")}
       >
         Requests
       </button>
@@ -231,111 +231,205 @@ function SellerDashboard() {
       {showRequests && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded shadow-lg">
-            <h2 className="text-xl mb-4">Requests</h2>
+            <h2 className="text-xl font-bold mb-4">Requests</h2>
             {requests.length > 0 ? (
-              requests.map((request) => (
-                <div key={request.id} className="border p-2 mb-2 rounded">
-                  <p>{request.message}</p>
-                </div>
-              ))
+              <ul>
+                {requests.map((request) => (
+                  <li key={request.id}>
+                    {request.productName} - {request.quantity} units requested
+                    by {request.buyerEmail}
+                  </li>
+                ))}
+              </ul>
             ) : (
-              <p>No requests available.</p>
+              <p>No requests found.</p>
             )}
-            <button className="bg-red-500 text-white px-4 py-2 rounded mt-4" onClick={() => setShowRequests(false)}>
+            <button
+              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
+              onClick={() => setShowRequests(false)}
+            >
               Close
             </button>
           </div>
         </div>
       )}
 
-      {/* Add New Product Form */}
-      <form onSubmit={handleAddProduct} className="bg-white p-4 rounded shadow-md mb-6">
-        <h2 className="text-xl font-semibold mb-4">Add New Product</h2>
-        <input
-          type="text"
-          name="name"
-          value={newProduct.name}
-          onChange={handleInputChange}
-          placeholder="Product Name"
-          required
-          className="border p-2 rounded mb-4 w-full"
-        />
-        <input
-          type="text"
-          name="category"
-          value={newProduct.category}
-          onChange={handleInputChange}
-          placeholder="Category"
-          required
-          className="border p-2 rounded mb-4 w-full"
-        />
-        <input
-          type="number"
-          name="quantity"
-          value={newProduct.quantity}
-          onChange={handleInputChange}
-          placeholder="Quantity"
-          required
-          className="border p-2 rounded mb-4 w-full"
-        />
-        <input
-          type="number"
-          name="price"
-          value={newProduct.price}
-          onChange={handleInputChange}
-          placeholder="Price"
-          required
-          className="border p-2 rounded mb-4 w-full"
-        />
-        <textarea
-          name="description"
-          value={newProduct.description}
-          onChange={handleInputChange}
-          placeholder="Description"
-          className="border p-2 rounded mb-4 w-full"
-        />
-        <div className="flex items-center mb-4">
+      {/* Form to add a new product */}
+      <div className="product-form bg-white p-4 rounded-lg shadow-md mb-6">
+        <h2 className="text-2xl font-bold mb-4">Add a New Product</h2>
+        <form onSubmit={handleAddProduct}>
+          {/* Product Name */}
+          <div className="mb-4">
+            <label className="block text-lg font-semibold mb-2">
+              Product Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              value={newProduct.name}
+              onChange={handleInputChange}
+              className="w-full px-3 py-2 border rounded-lg"
+              placeholder="Enter product name"
+              required
+            />
+          </div>
+
+          {/* Category */}
+          <div className="mb-4">
+            <label className="block text-lg font-semibold mb-2">Category</label>
+            <input
+              type="text"
+              name="category"
+              value={newProduct.category}
+              onChange={handleInputChange}
+              className="w-full px-3 py-2 border rounded-lg"
+              placeholder="Enter product category"
+              required
+            />
+          </div>
+
+          {/* Quantity */}
+          <div className="mb-4 flex">
+            <div className="w-2/3">
+              <label className="block text-lg font-semibold mb-2">
+                Quantity
+              </label>
+              <input
+                type="number"
+                name="quantity"
+                value={newProduct.quantity}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border rounded-lg"
+                placeholder="Enter quantity"
+                required
+              />
+            </div>
+
+            {/* Units Dropdown */}
+            <div className="w-1/3 ml-4">
+              <label className="block text-lg font-semibold mb-2">Unit</label>
+              <select
+                name="unit"
+                value={newProduct.unit}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border rounded-lg"
+                required
+              >
+                <option value="kg">kg</option>
+                <option value="l">l</option>
+                <option value="gm">gm</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Price */}
+          <div className="mb-4">
+            <label className="block text-lg font-semibold mb-2">Price</label>
+            <input
+              type="number"
+              step="0.01"
+              name="price"
+              value={newProduct.price}
+              onChange={handleInputChange}
+              className="w-full px-3 py-2 border rounded-lg"
+              placeholder="Enter price"
+              required
+            />
+          </div>
+
+          {/* Product Type */}
+          <div className="mb-4">
+            <label className="block text-lg font-semibold mb-2">
+              Product Type
+            </label>
+            <select
+              name="type"
+              value={newProduct.type}
+              onChange={handleInputChange}
+              className="w-full px-3 py-2 border rounded-lg"
+              required
+            >
+              <option value="Waste Product">Waste Product</option>
+              <option value="By-product">By-product</option>
+            </select>
+          </div>
+
+          {/* Description */}
+          <div className="mb-4">
+            <label className="block text-lg font-semibold mb-2">
+              Description
+            </label>
+            <textarea
+              name="description"
+              value={newProduct.description}
+              onChange={handleInputChange}
+              className="w-full px-3 py-2 border rounded-lg"
+              placeholder="Enter product description"
+            />
+          </div>
+
+          {/* Generate Description Button */}
+          <div className="mb-4">
+            <button
+              type="button"
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+              onClick={handleGenerateDescription}
+              disabled={isGenerating}
+            >
+              {isGenerating ? "Generating..." : "Generate Description"}
+            </button>
+          </div>
+
+          {/* Submit Button */}
           <button
-            type="button"
-            onClick={handleGenerateDescription}
-            disabled={isGenerating}
-            className="bg-blue-500 text-white px-4 py-2 rounded mr-4"
+            type="submit"
+            className="bg-green-500 text-white px-4 py-2 rounded"
           >
-            {isGenerating ? 'Generating...' : 'Generate Description'}
+            Add Product
           </button>
-        </div>
-        <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded">
-          Add Product
-        </button>
-      </form>
+        </form>
+      </div>
 
       {/* Product Listings */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-  {products.map((product) => (
-    <div key={product.id} className="border p-4 rounded bg-white shadow">
-      <h3 className="text-xl font-semibold">{product.name}</h3>
-      <p>Category: {product.category}</p>
-      <p>Quantity: {product.quantity}</p>
-      <p>Price: ${product.price.toFixed(2)}</p>
-      <p>Status: {product.status}</p>
-      <p style={{ color: getDemandColor(product.demand) }}>Demand: {product.demand}</p>
-      <p>Product ID: {product.productId || product.id}</p> {/* Display Product ID */}
-      <p>Description: {product.description}</p>
-      <button
-        className="bg-blue-500 text-white px-4 py-2 rounded mt-2"
-        onClick={() => handleViewPotentialBuyers(product)}
-      >
-        View Potential Buyers
-      </button>
-      <button
-        className="bg-red-500 text-white px-4 py-2 rounded mt-2"
-        onClick={() => handleDeleteProduct(product.id)}
-      >
-        Delete Product
-      </button>
-    </div>
-  ))}
-</div>
+      <div className="product-listings bg-white p-4 rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold mb-4">Your Products</h2>
+        {products.length > 0 ? (
+          <ul>
+            {products.map((product) => (
+              <li key={product.id} className="mb-4">
+                <h3 className="text-lg font-bold">{product.name}</h3>
+                <p>Category: {product.category}</p>
+                <p>Quantity: {product.quantity}</p>
+                <p>Price: {product.price}</p>
+                <p>Type: {product.type}</p>
+                <p>Description: {product.description}</p>
+                <p style={{ color: getDemandColor(product.demand) }}>
+                  Demand: {product.demand}%
+                </p>
+                <p>Status: {product.status}</p>
+
+                {/* Delete Button */}
+                <button
+                  className="bg-red-500 text-white px-4 py-2 rounded mt-2"
+                  onClick={() => handleDeleteProduct(product.id)}
+                >
+                  Delete
+                </button>
+
+                {/* View Potential Buyers Button */}
+                <button
+                  className="bg-blue-500 text-white px-4 py-2 rounded mt-2 ml-2"
+                  onClick={() => handleViewPotentialBuyers(product)}
+                >
+                  View Potential Buyers
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No products found.</p>
+        )}
+      </div>
     </div>
   );
 }
