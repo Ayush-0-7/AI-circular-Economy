@@ -19,7 +19,6 @@ function Navbar() {
         {/* Links for larger screens */}
         <div className="hidden md:flex space-x-6">
           <Link to="/" className="text-white hover:text-gray-300">Home</Link>
-          <Link to="/about" className="text-white hover:text-gray-300">About</Link>
           <Link to="/login" className="text-white hover:text-gray-300">Login</Link>
         </div>
 
