@@ -12,7 +12,9 @@ const port = process.env.PORT || 5000;
 // Middleware
 app.use(cors()); // Adjust CORS settings as needed
 app.use(express.json());
-
+app.use('/',(req,res)=>{
+  res.json({msg:"Hello from JSR."});
+});
 // Configure Fal-AI Client
 fal.config({
   credentials: process.env.FAL_KEY,
@@ -71,9 +73,7 @@ app.post('/api/proxy', async (req, res) => {
   }
 });
 
-app.use('/',(req,res)=>{
-   res.json({msg:"Hello from JSR."});
-});
+
 
 // Start Server
 app.listen(port, () => {
