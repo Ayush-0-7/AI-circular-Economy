@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for Lightning component */
+
+.app-container {
+  @apply max-w-3xl mx-auto p-5 font-sans; /* Tailwind utility classes */
+}
+
+.input-section {
+  @apply flex flex-col gap-4 mb-8;
+}
+
+.input-section label {
+  @apply font-bold mb-1;
+}
+
+.input-box {
+  @apply p-2 text-lg border border-gray-300 rounded;
+}
+
+.generate-button {
+  @apply p-3 text-lg cursor-pointer bg-blue-500 text-white rounded transition-colors duration-300 ease-in-out;
+}
+
+.generate-button:disabled {
+  @apply bg-gray-400 cursor-not-allowed;
+}
+
+.generate-button:hover:not(:disabled) {
+  @apply bg-blue-700;
+}
+
+.image-section {
+  @apply text-center;
+}
+
+.images-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-5;
+}
+
+.image-wrapper {
+  @apply border border-gray-300 p-3 rounded-lg bg-gray-50;
+}
+
+.generated-image {
+  @apply w-full rounded-md;
+}
+
+.error-message {
+  @apply text-red-500 font-bold;
+}
+
+/* Additional styling for the table display of raw materials */
+
+.raw-materials-section table {
+  @apply w-full border-collapse;
+}
+
+.raw-materials-section th, .raw-materials-section td {
+  @apply border border-gray-300 p-2 text-left;
+}
+
+.raw-materials-section th {
+  @apply bg-gray-100 font-bold;
+}
