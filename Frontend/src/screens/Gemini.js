@@ -4,8 +4,8 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 
 // const genAI = new GoogleGenerativeAI('AIzaSyCqzZTxRZVJlOQ7rkWarXL4y8vemoSUiqE');
 // const genAI = new GoogleGenerativeAI('AIzaSyAzm3gyfUp4mFGej3jEqg-jvUkQK1Szn24');
-// const genAI = new GoogleGenerativeAI('AIzaSyB3df6V6CbdWZJbnvp5V6PoWfMz8mIfy-A');
-const genAI = new GoogleGenerativeAI('AIzaSyB6zlzWKp99f8TwD1IVj4SZOghhR6qhXsg');
+const genAI = new GoogleGenerativeAI('AIzaSyB3df6V6CbdWZJbnvp5V6PoWfMz8mIfy-A');
+// const genAI = new GoogleGenerativeAI('AIzaSyB6zlzWKp99f8TwD1IVj4SZOghhR6qhXsg');
 
 const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro' });
 
