@@ -10,9 +10,7 @@ const app = express();
 // Middleware
 app.use(cors()); // Adjust CORS settings as needed
 app.use(express.json());
-app.use('/', (req, res) => {
-  res.json({ msg: "Hello from JSR." });
-});
+
 
 // Configure Fal-AI Client
 fal.config({
