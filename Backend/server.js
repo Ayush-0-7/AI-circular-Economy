@@ -17,7 +17,6 @@ app.use(express.json());
 fal.config({
   credentials: process.env.FAL_KEY,
 });
-
 // API Endpoint
 app.post('/api/proxy', async (req, res) => {
   const {
@@ -70,6 +69,10 @@ app.post('/api/proxy', async (req, res) => {
     console.error('Error generating images:', error);
     res.status(500).json({ error: 'Failed to generate images.' });
   }
+});
+
+app.use('/',(req,res)=>{
+   res.json({msg:"Hello from JSR."});
 });
 
 // Start Server
