@@ -42,7 +42,7 @@ const Lightning = () => {
     setError(null);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/proxy', input); // Proxy set in frontend's package.json
+      const response = await axios.post('https://ai-circular-economy.vercel.app/api/proxy', input); // Proxy set in frontend's package.json
 
       if (response.data && response.data.images && response.data.images.length > 0) {
         const imageUrls = response.data.images.map((img) => img.url); // Extract all image URLs
