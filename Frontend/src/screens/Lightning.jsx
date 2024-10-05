@@ -86,6 +86,20 @@ const Lightning = () => {
     }
   };
 
+  const incrementNumImages = () => {
+    if (numImages < 10) {
+      setNumImages(numImages + 1);
+      generateImage(prompt, seed, numImages + 1);
+    }
+  };
+
+  const decrementNumImages = () => {
+    if (numImages > 1) {
+      setNumImages(numImages - 1);
+      generateImage(prompt, seed, numImages - 1);
+    }
+  };
+
   // Function to handle raw material generation
   const handleGenerateRawMaterial = async () => {
     if (selectedImage) {
@@ -136,16 +150,32 @@ const Lightning = () => {
         />
 
         <label htmlFor="numImages">Number of Images:</label>
-        <input
-          type="number"
-          id="numImages"
-          value={numImages}
-          onChange={(e) => handleNumImagesChange(e.target.value)}
-          className="input-box"
-          placeholder="Enter number of images (1-10)"
-          min="1"
-          max="10"
-        />
+        <div className="num-images-wrapper">
+          <button
+            className="num-images-btn"
+            onClick={decrementNumImages}
+            disabled={numImages <= 1}
+          >
+            -
+          </button>
+          <input
+            type="number"
+            id="numImages"
+            value={numImages}
+            onChange={(e) => handleNumImagesChange(e.target.value)}
+            className="input-box"
+            placeholder="Enter number of images (1-10)"
+            min="1"
+            max="10"
+          />
+          <button
+            className="num-images-btn"
+            onClick={incrementNumImages}
+            disabled={numImages >= 10}
+          >
+            +
+          </button>
+        </div>
 
         <button
           onClick={() => generateImage(prompt, seed, numImages)}
